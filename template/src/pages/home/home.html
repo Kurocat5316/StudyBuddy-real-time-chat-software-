@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+
+  <ion-item>
+    <ion-label floating>StudentId</ion-label>
+    <ion-input type="text" [(ngModel)] = "id"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password" [(ngModel)] = "password"></ion-input>
+  </ion-item>
+  <button ion-button color="secondary" (click) = "Login()">Login</button>
+  <button ion-button color="secondary" (click) = "ToRegister()">Register</button>
+  <button ion-button color="secondary" (click) = "ToResetPassword()">Reset Password</button>
+</ion-list>
+</ion-content>

@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudyBuddyDaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Chat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="chatId" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="senderId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="sendTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="content" Type="varchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Convener">
+    <Key>
+      <PropertyRef Name="convenerId" />
+    </Key>
+    <Property Name="convenerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="convenerName" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Faculty">
+    <Key>
+      <PropertyRef Name="facultyId" />
+    </Key>
+    <Property Name="facultyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="facultyName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Friend">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hostId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="friendId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="chatId" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="BlockOpetion" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="requestId" />
+    </Key>
+    <Property Name="requestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="senderId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="receiverId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="content" Type="varchar" MaxLength="256" />
+    <Property Name="time" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="inforClass" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Semester">
+    <Key>
+      <PropertyRef Name="semesterId" />
+    </Key>
+    <Property Name="semesterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="semester" Type="varchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="nickname" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="logonStatus" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="vertificationCheck" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="LocationX" Type="float" />
+    <Property Name="LocationY" Type="float" />
+    <Property Name="managerForbid" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="unitCode" />
+    </Key>
+    <Property Name="unitCode" Type="int" Nullable="false" />
+    <Property Name="unitName" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="facultyId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnitArrangement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="unitCode" Type="int" Nullable="false" />
+    <Property Name="semesterId" Type="int" Nullable="false" />
+    <Property Name="convenerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnitTaken">
+    <Key>
+      <PropertyRef Name="takenId" />
+    </Key>
+    <Property Name="takenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="studentId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="unitCode" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Chat__senderId__681373AD">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Chat" Type="Self.Chat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Chat">
+        <PropertyRef Name="senderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend__friendId__69FBBC1F">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="friendId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend__hostId__690797E6">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="hostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__receive__09746778">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="receiverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__senderI__0880433F">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="senderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Unit__facultyId__55009F39">
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="facultyId" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="facultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitArran__conve__73852659">
+    <End Role="Convener" Type="Self.Convener" Multiplicity="1" />
+    <End Role="UnitArrangement" Type="Self.UnitArrangement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Convener">
+        <PropertyRef Name="convenerId" />
+      </Principal>
+      <Dependent Role="UnitArrangement">
+        <PropertyRef Name="convenerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitArran__semes__5E8A0973">
+    <End Role="Semester" Type="Self.Semester" Multiplicity="1" />
+    <End Role="UnitArrangement" Type="Self.UnitArrangement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Semester">
+        <PropertyRef Name="semesterId" />
+      </Principal>
+      <Dependent Role="UnitArrangement">
+        <PropertyRef Name="semesterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitArran__unitC__5F7E2DAC">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="UnitArrangement" Type="Self.UnitArrangement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="unitCode" />
+      </Principal>
+      <Dependent Role="UnitArrangement">
+        <PropertyRef Name="unitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitTaken__stude__6CD828CA">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="UnitTaken" Type="Self.UnitTaken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="UnitTaken">
+        <PropertyRef Name="studentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitTaken__unitC__59C55456">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="UnitTaken" Type="Self.UnitTaken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="unitCode" />
+      </Principal>
+      <Dependent Role="UnitTaken">
+        <PropertyRef Name="unitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StudyBuddyDaModelStoreContainer">
+    <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Convener" EntityType="Self.Convener" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friend" EntityType="Self.Friend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UnitArrangement" EntityType="Self.UnitArrangement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UnitTaken" EntityType="Self.UnitTaken" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Chat__senderId__681373AD" Association="Self.FK__Chat__senderId__681373AD">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Chat" EntitySet="Chat" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend__friendId__69FBBC1F" Association="Self.FK__Friend__friendId__69FBBC1F">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend__hostId__690797E6" Association="Self.FK__Friend__hostId__690797E6">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__receive__09746778" Association="Self.FK__Request__receive__09746778">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__senderI__0880433F" Association="Self.FK__Request__senderI__0880433F">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Unit__facultyId__55009F39" Association="Self.FK__Unit__facultyId__55009F39">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitArran__conve__73852659" Association="Self.FK__UnitArran__conve__73852659">
+      <End Role="Convener" EntitySet="Convener" />
+      <End Role="UnitArrangement" EntitySet="UnitArrangement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitArran__semes__5E8A0973" Association="Self.FK__UnitArran__semes__5E8A0973">
+      <End Role="Semester" EntitySet="Semester" />
+      <End Role="UnitArrangement" EntitySet="UnitArrangement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitArran__unitC__5F7E2DAC" Association="Self.FK__UnitArran__unitC__5F7E2DAC">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="UnitArrangement" EntitySet="UnitArrangement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitTaken__stude__6CD828CA" Association="Self.FK__UnitTaken__stude__6CD828CA">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="UnitTaken" EntitySet="UnitTaken" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitTaken__unitC__59C55456" Association="Self.FK__UnitTaken__unitC__59C55456">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="UnitTaken" EntitySet="UnitTaken" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudyBuddyDaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="gender" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="nation" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="logonStatus" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="vertificationCheck" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="StudyBuddyDaModelStoreContainer">
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

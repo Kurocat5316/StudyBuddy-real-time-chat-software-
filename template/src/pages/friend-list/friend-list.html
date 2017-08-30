@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      System Information
+    </ion-list-header>
+        <ion-item *ngFor="let sys of systemInformation"  (click)="GetDetail(sys)">
+            <h2>New System Message </h2>
+            <ion-note item-right style="font-size: 2px">
+              {{sys.time}}
+            </ion-note>
+            <h3>{{sys.senderNickName}}</h3>
+            <p>{{sys.content}}</p>
+          </ion-item>
+    </ion-list>
+  
+  <ion-list>
+    <ion-list-header>
+      FriendList
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let friend of firendInfor">
+        <ion-item (click)="StartChat(friend)" [style.background-color]="friend.loginStatus == '1'? '#D6EAF8' : '#D6DBDF'">
+            <h2>{{friend.friendNickName}}</h2>
+            <ion-note item-right style="font-size: 2px; margin-top: -25px;">
+              {{friend.sendTime}}
+            </ion-note>
+            <p>{{friend.lastMessage}}</p>
+          </ion-item>
+              <ion-item-options side="right">
+                  <button ion-button color="danger" (click)="DeleteFriend(friend)">
+                    <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+                      Delete
+                  </button>
+              </ion-item-options>
+          </ion-item-sliding>
+    </ion-list>
+</ion-content>

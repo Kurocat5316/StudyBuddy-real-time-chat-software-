@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Serve.Models.Student>
+@{
+    ViewBag.Title = "StudyBuddy Account Manage";
+}
+
+
+<Head><title>StudyBuddy Account Manage</title></Head>
+
+<div class="float-right">
+    <nav>
+        <ul id="menu" style="margin-right: 200px">
+            <li>@Html.ActionLink("User Management", "Index", "Home", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Unit management", "Index", "Home/UnitManage", new { area = "" }, null)</li>
+        </ul>
+    </nav>
+</div>
+
+
+<table>
+
+
+
+    <thead>
+        <tr>
+            <th>StudengId</th>
+            <th>Nick Name</th>
+            <th>Forbid Status</th>
+            <th>Switch Forbid Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.studentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nickname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.managerForbid)
+                </td>
+                <td>
+                    <a href="~/home/SwichStatus/@item.studentId">Switch</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+</table>
+
+<style>
+    table {
+        width:80%;
+        margin-left:10%
+    }
+    table tr:nth-child(even) {
+        background-color: #eee;
+    }
+    table tr:nth-child(odd) {
+       background-color:#fff;
+    }
+    table th {
+        background-color: black;
+        color: white;
+    }
+</style>

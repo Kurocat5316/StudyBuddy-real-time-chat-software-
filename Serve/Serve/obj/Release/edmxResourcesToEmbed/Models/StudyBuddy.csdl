@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudyBuddyDaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Chat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="chatId" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="senderId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sendTime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="content" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__Chat__senderId__681373AD" FromRole="Chat" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Convener">
+    <Key>
+      <PropertyRef Name="convenerId" />
+    </Key>
+    <Property Name="convenerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="convenerName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UnitArrangement" Relationship="Self.FK__UnitArran__conve__73852659" FromRole="Convener" ToRole="UnitArrangement" />
+  </EntityType>
+  <EntityType Name="Faculty">
+    <Key>
+      <PropertyRef Name="facultyId" />
+    </Key>
+    <Property Name="facultyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="facultyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK__Unit__facultyId__55009F39" FromRole="Faculty" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="Friend">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hostId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="friendId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="chatId" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BlockOpetion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__Friend__friendId__69FBBC1F" FromRole="Friend" ToRole="Student" />
+    <NavigationProperty Name="Student1" Relationship="Self.FK__Friend__hostId__690797E6" FromRole="Friend" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="requestId" />
+    </Key>
+    <Property Name="requestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="senderId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="receiverId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="time" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="inforClass" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__Request__receive__09746778" FromRole="Request" ToRole="Student" />
+    <NavigationProperty Name="Student1" Relationship="Self.FK__Request__senderI__0880433F" FromRole="Request" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Semester">
+    <Key>
+      <PropertyRef Name="semesterId" />
+    </Key>
+    <Property Name="semesterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="semester1" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UnitArrangement" Relationship="Self.FK__UnitArran__semes__5E8A0973" FromRole="Semester" ToRole="UnitArrangement" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="studentId" />
+    </Key>
+    <Property Name="studentId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nickname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="logonStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vertificationCheck" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="LocationX" Type="Double" />
+    <Property Name="LocationY" Type="Double" />
+    <Property Name="managerForbid" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Chat" Relationship="Self.FK__Chat__senderId__681373AD" FromRole="Student" ToRole="Chat" />
+    <NavigationProperty Name="Friend" Relationship="Self.FK__Friend__friendId__69FBBC1F" FromRole="Student" ToRole="Friend" />
+    <NavigationProperty Name="Friend1" Relationship="Self.FK__Friend__hostId__690797E6" FromRole="Student" ToRole="Friend" />
+    <NavigationProperty Name="Request" Relationship="Self.FK__Request__receive__09746778" FromRole="Student" ToRole="Request" />
+    <NavigationProperty Name="Request1" Relationship="Self.FK__Request__senderI__0880433F" FromRole="Student" ToRole="Request" />
+    <NavigationProperty Name="UnitTaken" Relationship="Self.FK__UnitTaken__stude__6CD828CA" FromRole="Student" ToRole="UnitTaken" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="unitCode" />
+    </Key>
+    <Property Name="unitCode" Type="Int32" Nullable="false" />
+    <Property Name="unitName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="facultyId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Faculty" Relationship="Self.FK__Unit__facultyId__55009F39" FromRole="Unit" ToRole="Faculty" />
+    <NavigationProperty Name="UnitArrangement" Relationship="Self.FK__UnitArran__unitC__5F7E2DAC" FromRole="Unit" ToRole="UnitArrangement" />
+    <NavigationProperty Name="UnitTaken" Relationship="Self.FK__UnitTaken__unitC__59C55456" FromRole="Unit" ToRole="UnitTaken" />
+  </EntityType>
+  <EntityType Name="UnitArrangement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="unitCode" Type="Int32" Nullable="false" />
+    <Property Name="semesterId" Type="Int32" Nullable="false" />
+    <Property Name="convenerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Convener" Relationship="Self.FK__UnitArran__conve__73852659" FromRole="UnitArrangement" ToRole="Convener" />
+    <NavigationProperty Name="Semester" Relationship="Self.FK__UnitArran__semes__5E8A0973" FromRole="UnitArrangement" ToRole="Semester" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK__UnitArran__unitC__5F7E2DAC" FromRole="UnitArrangement" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="UnitTaken">
+    <Key>
+      <PropertyRef Name="takenId" />
+    </Key>
+    <Property Name="takenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="studentId" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="unitCode" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__UnitTaken__stude__6CD828CA" FromRole="UnitTaken" ToRole="Student" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK__UnitTaken__unitC__59C55456" FromRole="UnitTaken" ToRole="Unit" />
+  </EntityType>
+  <Association Name="FK__Chat__senderId__681373AD">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Chat" Type="Self.Chat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Chat">
+        <PropertyRef Name="senderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitArran__conve__73852659">
+    <End Role="Convener" Type="Self.Convener" Multiplicity="1" />
+    <End Role="UnitArrangement" Type="Self.UnitArrangement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Convener">
+        <PropertyRef Name="convenerId" />
+      </Principal>
+      <Dependent Role="UnitArrangement">
+        <PropertyRef Name="convenerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Unit__facultyId__55009F39">
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="facultyId" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="facultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend__friendId__69FBBC1F">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="friendId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend__hostId__690797E6">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="hostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__receive__09746778">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="receiverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Request__senderI__0880433F">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="senderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitArran__semes__5E8A0973">
+    <End Role="Semester" Type="Self.Semester" Multiplicity="1" />
+    <End Role="UnitArrangement" Type="Self.UnitArrangement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Semester">
+        <PropertyRef Name="semesterId" />
+      </Principal>
+      <Dependent Role="UnitArrangement">
+        <PropertyRef Name="semesterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitTaken__stude__6CD828CA">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="UnitTaken" Type="Self.UnitTaken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentId" />
+      </Principal>
+      <Dependent Role="UnitTaken">
+        <PropertyRef Name="studentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitArran__unitC__5F7E2DAC">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="UnitArrangement" Type="Self.UnitArrangement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="unitCode" />
+      </Principal>
+      <Dependent Role="UnitArrangement">
+        <PropertyRef Name="unitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UnitTaken__unitC__59C55456">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="UnitTaken" Type="Self.UnitTaken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="unitCode" />
+      </Principal>
+      <Dependent Role="UnitTaken">
+        <PropertyRef Name="unitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StudyBuddyDaEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Chat" EntityType="Self.Chat" />
+    <EntitySet Name="Convener" EntityType="Self.Convener" />
+    <EntitySet Name="Faculty" EntityType="Self.Faculty" />
+    <EntitySet Name="Friend" EntityType="Self.Friend" />
+    <EntitySet Name="Request" EntityType="Self.Request" />
+    <EntitySet Name="Semester" EntityType="Self.Semester" />
+    <EntitySet Name="Student" EntityType="Self.Student" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" />
+    <EntitySet Name="UnitArrangement" EntityType="Self.UnitArrangement" />
+    <EntitySet Name="UnitTaken" EntityType="Self.UnitTaken" />
+    <AssociationSet Name="FK__Chat__senderId__681373AD" Association="Self.FK__Chat__senderId__681373AD">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Chat" EntitySet="Chat" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitArran__conve__73852659" Association="Self.FK__UnitArran__conve__73852659">
+      <End Role="Convener" EntitySet="Convener" />
+      <End Role="UnitArrangement" EntitySet="UnitArrangement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Unit__facultyId__55009F39" Association="Self.FK__Unit__facultyId__55009F39">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend__friendId__69FBBC1F" Association="Self.FK__Friend__friendId__69FBBC1F">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend__hostId__690797E6" Association="Self.FK__Friend__hostId__690797E6">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__receive__09746778" Association="Self.FK__Request__receive__09746778">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Request__senderI__0880433F" Association="Self.FK__Request__senderI__0880433F">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitArran__semes__5E8A0973" Association="Self.FK__UnitArran__semes__5E8A0973">
+      <End Role="Semester" EntitySet="Semester" />
+      <End Role="UnitArrangement" EntitySet="UnitArrangement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitTaken__stude__6CD828CA" Association="Self.FK__UnitTaken__stude__6CD828CA">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="UnitTaken" EntitySet="UnitTaken" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitArran__unitC__5F7E2DAC" Association="Self.FK__UnitArran__unitC__5F7E2DAC">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="UnitArrangement" EntitySet="UnitArrangement" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UnitTaken__unitC__59C55456" Association="Self.FK__UnitTaken__unitC__59C55456">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="UnitTaken" EntitySet="UnitTaken" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

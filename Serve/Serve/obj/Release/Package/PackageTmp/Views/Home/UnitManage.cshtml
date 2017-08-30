@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Serve.Models.UnitInfor>
+@{
+    ViewBag.Title = "StudyBuddy Unit Manage";
+}
+
+
+<head>
+    <title>StudyBuddy Account Manage</title>
+</head>
+
+<div class="float-right">
+    <nav>
+        <ul id="menu" style="margin-right: 200px">
+            <li>@Html.ActionLink("User Management", "Index", "Home", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Unit management", "Index", "Home/UnitManage", new { area = "" }, null)</li>
+        </ul>
+        <ul id="menu" style="margin-right: 200px; font-size: 10px">
+            @using (Ajax.BeginForm("Update", "Home",
+                                        new AjaxOptions { UpdateTargetId = "" }))
+            {
+               <li>Year: @Html.TextBox("year") <button>Update</button></li>
+            }
+        </ul>
+    </nav>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Unit Code</th>
+            <th>Unit Name</th>
+            <th>Semeter</th>
+            <th>Convener Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Faculty</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.unitCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.unitName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.semeter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.convenerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.facultyName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<style>
+    table {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+        table tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        table th {
+            background-color: black;
+            color: white;
+        }
+</style>

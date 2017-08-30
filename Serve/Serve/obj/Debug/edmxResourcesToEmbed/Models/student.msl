@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StudyBuddyDaModelStoreContainer" CdmEntityContainer="StudyBuddyDaEntities">
+    <EntitySetMapping Name="Student">
+      <EntityTypeMapping TypeName="StudyBuddyDaModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="studentId" ColumnName="studentId" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="nation" ColumnName="nation" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="logonStatus" ColumnName="logonStatus" />
+          <ScalarProperty Name="vertificationCheck" ColumnName="vertificationCheck" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
